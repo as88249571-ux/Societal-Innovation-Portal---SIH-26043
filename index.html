@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Societal Innovation Portal - SIH 26043</title>
+    <style>
+       
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: #f8fafc;
+            color: #1e293b;
+        }
+        /* Header Styling */
+        header {
+            background-color: #4338ca;
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        header h1 {
+            font-size: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        header h1 span {
+            background-color: #6366f1;
+            font-size: 0.75rem;
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+        nav button {
+            background: transparent;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            margin-left: 8px;
+            cursor: pointer;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+        nav button:hover, nav button.active {
+            background-color: #3730a3;
+        }
+
+        /* Container Layout */
+        main {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        .card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin-bottom: 20px;
+        }
+        .card-header {
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+        .card-header h2 {
+            color: #4338ca;
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+        .card-header p {
+            color: #64748b;
+            font-size: 0.875rem;
+        }
+
+        /* Form Controls */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: #334155;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        input:focus, select:focus, textarea:focus {
+            border-color: #4338ca;
+            box-shadow: 0 0 0 3px rgba(67, 56, 202, 0.1);
+        }
+        .submit-btn {
+            background-color: #4338ca;
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 12px;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.2s;
+            margin-top: 10px;
+        }
+        .submit-btn:hover {
+            background-color: #3730a3;
+        }
+
+        /* Dashboard Table Style */
+        .flex-between {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .badge-count {
+            background-color: #e0e7ff;
+            color: #4338ca;
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            text-align: left;
+        }
+        th, td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 0.9rem;
+        }
+        th {
+            background-color: #f1f5f9;
+            color: #475569;
+            font-weight: 600;
+        }
+        .status-badge {
+            background-color: #fef3c7;
+            color: #d97706;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .domain-badge {
+            background-color: #dbeafe;
+            color: #1d4ed8;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <h1>🌐 Societal Innovation Portal <span>SIH 26043</span></h1>
+        <nav>
+            <button onclick="switchTab('submit')" id="btn-submit" class="active">Submit Challenge</button>
+            <button onclick="switchTab('dashboard')" id="btn-dashboard">Live Dashboard</button>
+        </nav>
+    </header>
+
+    <!-- Main Section -->
+    <main>
+        <!-- Form Section -->
+        <section id="section-submit" class="card">
+            <div class="card-header">
+                <h2>Submit a Societal Challenge</h2>
+                <p>Report local issues for university & industry collaboration under [Smart Education](https://www.sih.gov.in/sih2026PS).</p>
+            </div>
+
+            <form id="challengeForm" onsubmit="handleFormSubmit(event)">
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label>Your Name / Organization</label>
+                        <input type="text" id="userName" required placeholder="e.g., Rajesh Kumar">
+                    </div>
+                    <div class="form-group">
+                        <label>Thematic Domain</label>
+                        <select id="domain">
+                            <option value="Education">Education</option>
+                            <option value="Healthcare">Healthcare</option>
+                            <option value="Water Management">Water Management</option>
+                            <option value="Agriculture">Agriculture</option>
+                            <option value="Environment">Environment & Sanitation</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label>District / Location</label>
+                        <input type="text" id="location" required placeholder="e.g., Ranchi, Jharkhand">
+                    </div>
+                    <div class="form-group">
+                        <label>Problem Title</label>
+                        <input type="text" id="title" required placeholder="e.g., Shortage of digital tools in schools">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Detailed Description</label>
+                    <textarea id="description" rows="4" required placeholder="Describe the problem clearly..."></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn">🚀 Submit Challenge for Routing</button>
+            </form>
+        </section>
+
+        <!-- Dashboard Section -->
+        <section id="section-dashboard" class="hidden">
+            <div class="card flex-between">
+                <div>
+                    <h2 style="color: #4338ca; font-size: 1.5rem; margin-bottom: 5px;">Live Problem Dashboard</h2>
+                    <p style="color: #64748b; font-size: 0.875rem;">Real-time data stream of crowdsourced challenges.</p>
+                </div>
+                <div class="badge-count">Total Challenges: <span id="totalCount">0</span></div>
+            </div>
+
+            <div class="card">
+                <div style="font-weight: 600; margin-bottom: 10px; color: #475569;">Recent Community Submissions</div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Title & Submitter</th>
+                            <th>Domain</th>
+                            <th>Location</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="challengesTableBody">
+                        <!-- Data will load dynamically -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <!-- JavaScript Logic -->
+    <script>
+        let challenges = JSON.parse(localStorage.getItem('sih_challenges')) || [
+            { id: "SIH-801", name: "Amit Oraon", domain: "Water Management", location: "Ranchi", title: "Groundwater depletion in rural block", status: "Routed to University" }
+        ];
+
+        function switchTab(tab) {
+            const submitSec = document.getElementById('section-submit');
+            const dashSec = document.getElementById('section-dashboard');
+            const btnSubmit = document.getElementById('btn-submit');
+            const btnDash = document.getElementById('btn-dashboard');
+
+            if (tab === 'submit') {
+                submitSec.classList.remove('hidden');
+                dashSec.classList.add('hidden');
+                btnSubmit.classList.add('active');
+                btnDash.classList.remove('active');
+            } else {
+                submitSec.classList.add('hidden');
+                dashSec.classList.remove('hidden');
+                btnDash.classList.add('active');
+                btnSubmit.classList.remove('active');
+                renderDashboard();
+            }
+        }
+
+        function handleFormSubmit(event) {
+            event.preventDefault();
+
+            let newEntry = {
+                id: "SIH-" + Math.floor(100 + Math.random() * 900),
+                name: document.getElementById('userName').value,
+                domain: document.getElementById('domain').value,
+                location: document.getElementById('location').value,
+                title: document.getElementById('title').value,
+                status: "Pending Assignment"
+            };
+
+            challenges.unshift(newEntry);
+            localStorage.setItem('sih_challenges', JSON.stringify(challenges));
+
+            alert('✅ Challenge submitted successfully!');
+            document.getElementById('challengeForm').reset();
+            switchTab('dashboard');
+        }
+
+        function renderDashboard() {
+            let tbody = document.getElementById('challengesTableBody');
+            document.getElementById('totalCount').innerText = challenges.length;
+
+            tbody.innerHTML = "";
+            challenges.forEach(item => {
+                tbody.innerHTML += `
+                    <tr>
+                        <td style="font-weight: bold; color: #4338ca;">${item.id}</td>
+                        <td>
+                            <div style="font-weight: 600;">${item.title}</div>
+                            <div style="font-size: 0.75rem; color: #64748b;">By: ${item.name}</div>
+                        </td>
+                        <td><span class="domain-badge">${item.domain}</span></td>
+                        <td>${item.location}</td>
+                        <td><span class="status-badge">${item.status}</span></td>
+                    </tr>
+                `;
+            });
+        }
+    </script>
+</body>
+</html>
